@@ -1,7 +1,7 @@
 // Code in this file will be loaded by all full pages.
 
 loadPartial({
-    partial: "/partials/_header.html",
+    partial: "/partials/header.partial",
     target: document.body,
     method: "prepend",
 })
@@ -41,5 +41,8 @@ function loadPartial ({ partial, target = document.body, method = "append" }) {
 
     return fetch(pathBase + partial)
         .then(data => data.text())
-        .then(html => target.insertAdjacentHTML(method, html))
+        .then(html => {
+            console.log(html)
+            target.insertAdjacentHTML(method, html)
+        })
 }
