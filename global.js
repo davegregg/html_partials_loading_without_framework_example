@@ -33,7 +33,13 @@ function loadPartial ({ partial, target = document.body, method = "append" }) {
             method = "beforeend"
     }
 
-    return fetch(partial)
+    // GitHub.io namespaces sites under the project name
+    // so we can't just default to root
+    const pathBase = location.host.endsWith("github.io")
+        ? "/" + location.pathname.split("/")[1]
+        : ""
+
+    return fetch(pathBase + partial)
         .then(data => data.text())
         .then(html => target.insertAdjacentHTML(method, html))
 }
